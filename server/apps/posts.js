@@ -53,12 +53,12 @@ postRouter.post("/create", async (req, res) => {
   };
 
   await pool.query(
-    `insert into posts (user_id, post_title, post_context, category, post_vote_count, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7)`,
+    `insert into posts (user_id, post_title, post_context, category_id, post_vote_count, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7)`,
     [
       1,
       newPost.post_title,
       newPost.post_context,
-      newPost.category,
+      newPost.category_id,
       0,
       newPost.created_at,
       newPost.updated_at,
@@ -116,20 +116,20 @@ postRouter.get("/:id/comments", async (req, res) => {
 postRouter.post("/:id/comments", async (req, res) => {
   const newComment = {
     ...req.body,
-    created_at: new Date(),
-    updated_at: new Date(),
+    created_on: new Date(),
+    updated_on: new Date(),
   };
 
   await pool.query(
-    `insert into posts (user_id, comment_title, comment_context, category, comment_vote_count, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7)`,
+    `insert into posts (user_id, comment_title, comment, category, comment_vote_count, created_on, updated_on) values ($1, $2, $3, $4, $5, $6, $7)`,
     [
       1,
       newComment.comment_title,
-      newComment.comment_context,
+      newComment.comment,
       newComment.category,
       0,
-      newComment.created_at,
-      newComment.updated_at,
+      newComment.created_on,
+      newComment.updated_on,
     ]
   );
 
@@ -141,19 +141,19 @@ postRouter.post("/:id/comments", async (req, res) => {
 postRouter.put("/:id/comments", async (req, res) => {
   const updatedComment = {
     ...req.body,
-    updated_at: new Date(),
+    updated_on: new Date(),
   };
   const postId = req.params.id;
 
   await pool.query(
     `update posts
-    set comment_title=$1, comment_context=$2, category=$3, updated_at=$4, where post_id=$5
+    set comment_title=$1, comment=$2, category=$3, updated_on=$4, where post_id=$5
   `,
     [
       updatedComment.comment_title,
-      updatedComment.comment_context,
+      updatedComment.comment,
       updatedComment.category,
-      updatedComment.updated_at,
+      updatedComment.updated_on,
       postId,
     ]
   );
