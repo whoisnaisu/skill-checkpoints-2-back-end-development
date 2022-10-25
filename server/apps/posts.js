@@ -51,14 +51,18 @@ postRouter.post("/create", async (req, res) => {
     created_at: new Date(),
     updated_at: new Date(),
   };
+
+  values(2, "Title post 2", "Context post 2", 0, 0, now(), now());
+
   console.log(req.body);
   await pool.query(
-    `insert into posts (user_id, post_title, post_context, category_id, post_vote_count, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7)`,
+    `insert into posts insert into posts (user_id, title, context, category, upvote, downvote, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7, $8)`,
     [
-      1,
-      newPost.post_title,
-      newPost.post_context,
-      newPost.category_id,
+      2,
+      newPost.title,
+      newPost.context,
+      newPost.category,
+      0,
       0,
       newPost.created_at,
       newPost.updated_at,
