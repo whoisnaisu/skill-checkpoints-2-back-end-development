@@ -29,9 +29,11 @@ NOTES:
 - init node js first
 - install nodemon
 - install body parser
-- what is cors? i can't remember them at sall
+- if using Postgre, install pg and create pool to connect Node.js to the database
+- not to go beyond the requirements (you aren't gonna need it)
+
+
 - why do we need to put all express API in init() and make it async?
-- if are using Postgre, also install pg and create pool when connect Node.js to database
+- what is cors? i can't remember them at all
 - do we need to create a table on the PG itself or do it by on postman?
-- do not over do from the requirements (you are not gonna need it)
 - I think I have a problem with PostgreSQL
