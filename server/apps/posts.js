@@ -51,7 +51,7 @@ postRouter.post("/create", async (req, res) => {
     created_at: new Date(),
     updated_at: new Date(),
   };
-
+  console.log(req.body);
   await pool.query(
     `insert into posts (user_id, post_title, post_context, category_id, post_vote_count, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7)`,
     [
@@ -101,6 +101,7 @@ postRouter.delete("/:id", async (req, res) => {
   return res.json({
     message: `Post ${postId} has been deleted.`,
   });
+  s;
 });
 
 postRouter.get("/:id/comments", async (req, res) => {
