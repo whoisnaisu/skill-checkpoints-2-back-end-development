@@ -21,3 +21,17 @@ Deliverables Checklist (ชิ้นงานที่ต้องส่ง)
     
 Submit ตัว Link ของ Software Design Document และ GitHub Repository มาที่ Google Classroom ที่ชื่อว่า **[Skills Checkpoint 2] Backend Development**
 - **กำหนดส่งวันที่ 25 OCT 2022 ก่อน 16:30**
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------
+
+NOTES: 
+- req come before res
+- init node js first
+- install nodemon
+- install body parser
+- what is cors? i can't remember them at sall
+- why do we need to put all express API in init() and make it async?
+- if are using Postgre, also install pg and create pool when connect Node.js to database
+- do we need to create a table on the PG itself or do it by on postman?
+- do not over do from the requirements (you are not gonna need it)
+- I think I have a problem with PostgreSQL
