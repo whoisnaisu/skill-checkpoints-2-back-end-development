@@ -120,20 +120,20 @@ postRouter.get("/:id/comments", async (req, res) => {
 postRouter.post("/:id/comments", async (req, res) => {
   const newComment = {
     ...req.body,
-    created_on: new Date(),
-    updated_on: new Date(),
+    created_at: new Date(),
+    updated_at: new Date(),
   };
 
   await pool.query(
-    `insert into posts (user_id, comment_title, comment, category, comment_vote_count, created_on, updated_on) values ($1, $2, $3, $4, $5, $6, $7)`,
+    `insert into comments (post_id, user_id, comment, upvote, downvote, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7)`,
     [
-      1,
-      newComment.comment_title,
+      newComment.post_id,
+      10,
       newComment.comment,
-      newComment.category,
       0,
-      newComment.created_on,
-      newComment.updated_on,
+      0,
+      newComment.created_at,
+      newComment.updated_at,
     ]
   );
 
@@ -145,19 +145,19 @@ postRouter.post("/:id/comments", async (req, res) => {
 postRouter.put("/:id/comments", async (req, res) => {
   const updatedComment = {
     ...req.body,
-    updated_on: new Date(),
+    updated_at: new Date(),
   };
   const postId = req.params.id;
 
   await pool.query(
     `update posts
-    set comment_title=$1, comment=$2, category=$3, updated_on=$4, where post_id=$5
+    set comment=$1, comment=$2, upvote=$3, downvote=$4, updated_at=$5, where post_id=$6
   `,
     [
-      updatedComment.comment_title,
       updatedComment.comment,
-      updatedComment.category,
-      updatedComment.updated_on,
+      updatedComment.upvote,
+      updatedComment.downvote,
+      updatedComment.updated_at,
       postId,
     ]
   );
