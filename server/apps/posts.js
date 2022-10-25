@@ -79,12 +79,12 @@ postRouter.put("/:id", async (req, res) => {
 
   await pool.query(
     `update posts
-    set post_title=$1, post_context=$2, category=$3, updated_at=$4, where post_id=$5
+    set post_title=$1, post_context=$2, category_id=$3, updated_at=$4 where post_id=$5
   `,
     [
       updatedPost.post_title,
       updatedPost.post_context,
-      updatedPost.category,
+      updatedPost.category_id,
       updatedPost.updated_at,
       postId,
     ]
@@ -101,14 +101,14 @@ postRouter.delete("/:id", async (req, res) => {
   return res.json({
     message: `Post ${postId} has been deleted.`,
   });
-  s;
 });
 
 postRouter.get("/:id/comments", async (req, res) => {
   const postId = req.params.id;
-  const result = await pool.query("select * from posts where comment_id=$1", [
-    postId,
-  ]);
+  const result = await pool.query(
+    "select * from posts left join comments on posts.post_id = comments.post_id where posts.post_id=1",
+    [postId]
+  );
   return res.json({
     data: result.rows[0],
   });
