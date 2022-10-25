@@ -52,9 +52,6 @@ postRouter.post("/create", async (req, res) => {
     updated_at: new Date(),
   };
 
-  values(2, "Title post 2", "Context post 2", 0, 0, now(), now());
-
-  console.log(req.body);
   await pool.query(
     `insert into posts insert into posts (user_id, title, context, category, upvote, downvote, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7, $8)`,
     [
@@ -83,12 +80,14 @@ postRouter.put("/:id", async (req, res) => {
 
   await pool.query(
     `update posts
-    set post_title=$1, post_context=$2, category_id=$3, updated_at=$4 where post_id=$5
+    set title=$1, context=$2, category=$3, upvote=$4, downvote=$5, updated_at=$6 where post_id=$7
   `,
     [
-      updatedPost.post_title,
-      updatedPost.post_context,
-      updatedPost.category_id,
+      updatedPost.title,
+      updatedPost.context,
+      updatedPost.category,
+      updatedPost.upvote,
+      updatedPost.downvote,
       updatedPost.updated_at,
       postId,
     ]
@@ -110,7 +109,7 @@ postRouter.delete("/:id", async (req, res) => {
 postRouter.get("/:id/comments", async (req, res) => {
   const postId = req.params.id;
   const result = await pool.query(
-    "select * from posts left join comments on posts.post_id = comments.post_id where posts.post_id=1",
+    "select * from posts left join comments on posts.post_id = comments.post_id where posts.post_id=$1",
     [postId]
   );
   return res.json({
