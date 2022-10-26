@@ -1,7 +1,7 @@
 create table comments (
 	comment_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	user_id INT NOT NULL,
-	post_id INT NOT NULL,
+	user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
+	post_id INT REFERENCES posts(post_id) ON DELETE CASCADE,
 	comment TEXT NOT NULL,
 	created_at DATE NOT NULL,
 	updated_at DATE NOT NULL
