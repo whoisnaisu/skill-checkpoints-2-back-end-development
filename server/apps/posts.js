@@ -25,7 +25,6 @@ postRouter.get("/", async (req, res) => {
     values = [category];
   } else {
     query = `select * from posts`;
-    values = [];
   }
 
   const results = await pool.query(query, values);
@@ -53,14 +52,12 @@ postRouter.post("/create", async (req, res) => {
   };
 
   await pool.query(
-    `insert into posts insert into posts (user_id, title, context, category, upvote, downvote, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7, $8)`,
+    `insert into posts (user_id, title, context, category, created_at, updated_at) values ($1, $2, $3, $4, $5, $6)`,
     [
       2,
       newPost.title,
       newPost.context,
       newPost.category,
-      0,
-      0,
       newPost.created_at,
       newPost.updated_at,
     ]
@@ -80,14 +77,12 @@ postRouter.put("/:id", async (req, res) => {
 
   await pool.query(
     `update posts
-    set title=$1, context=$2, category=$3, upvote=$4, downvote=$5, updated_at=$6 where post_id=$7
+    set title=$1, context=$2, category=$3, updated_at=$4 where post_id=$5
   `,
     [
       updatedPost.title,
       updatedPost.context,
       updatedPost.category,
-      updatedPost.upvote,
-      updatedPost.downvote,
       updatedPost.updated_at,
       postId,
     ]
@@ -118,6 +113,7 @@ postRouter.get("/:id/comments", async (req, res) => {
 });
 
 postRouter.post("/:id/comments", async (req, res) => {
+  const postId = req.params.id;
   const newComment = {
     ...req.body,
     created_at: new Date(),
@@ -125,20 +121,18 @@ postRouter.post("/:id/comments", async (req, res) => {
   };
 
   await pool.query(
-    `insert into comments (post_id, user_id, comment, upvote, downvote, created_at, updated_at) values ($1, $2, $3, $4, $5, $6, $7)`,
+    `insert into comments (user_id, post_id, comment, created_at, updated_at) values ($1, $2, $3, $4, $5)`,
     [
-      newComment.post_id,
       10,
+      postId,
       newComment.comment,
-      0,
-      0,
       newComment.created_at,
       newComment.updated_at,
     ]
   );
 
   return res.json({
-    message: "Comment has been created.",
+    message: `Comment at post id ${postId} has been created.`,
   });
 });
 
