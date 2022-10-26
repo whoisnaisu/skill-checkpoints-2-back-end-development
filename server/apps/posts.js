@@ -195,6 +195,23 @@ postRouter.post("/:id/comments", async (req, res) => {
     `insert into comment_votes (user_id, comment_id, upvote, downvote) values ($1, $2, $3, $4)`,
     [newVote.user_id, newVote.comment_id, newVote.upvote, newVote.downvote]
   );
+
+  return res.json({
+    message: `User id ${newVote.user_id} has voted to comments to ${newVote.comment_id}`,
+  });
+});
+
+postRouter.put("/:id/", async (req, res) => {
+  const updatedVote = { ...req.body };
+
+  await pool.query(
+    `update comment_votes set upvote=$1, downvote=$2 where post_id=$3 `,
+    [updatedVote.upvote, updatedVote.downvote, postId]
+  );
+
+  return res.json({
+    message: `User id ${updatedVote.user_id} has updated voted to comment id ${postId}`,
+  });
 });
 
 export default postRouter;
