@@ -137,23 +137,18 @@ postRouter.post("/:id/comments", async (req, res) => {
 });
 
 postRouter.put("/:id/comments", async (req, res) => {
+  const postId = req.params.id;
   const updatedComment = {
     ...req.body,
     updated_at: new Date(),
   };
-  const postId = req.params.id;
 
   await pool.query(
-    `update posts
-    set comment=$1, comment=$2, upvote=$3, downvote=$4, updated_at=$5, where post_id=$6
+    `
+    update comments
+    set comment=$1, updated_at=$2 where post_id=$3
   `,
-    [
-      updatedComment.comment,
-      updatedComment.upvote,
-      updatedComment.downvote,
-      updatedComment.updated_at,
-      postId,
-    ]
+    [updatedComment.comment, updatedComment.updated_at, postId]
   );
 
   return res.json({
