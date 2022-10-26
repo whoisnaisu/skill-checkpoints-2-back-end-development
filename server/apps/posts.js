@@ -13,27 +13,22 @@ postRouter.get("/", async (req, res) => {
   if (category && keywords) {
     query = `
     select * from posts
-    left join post_votes
-    on posts.post_id = post_votes.post_id
+    
     where category=$1
     and title ilike $2`;
     values = [category, keywords];
   } else if (keywords) {
     query = `select * from posts
-    left join post_votes
-    on posts.post_id = post_votes.post_id
+   
     where title ilike $1`;
     values = [keywords];
   } else if (category) {
     query = `select * from posts
-    left join post_votes
-    on posts.post_id = post_votes.post_id
+   
     where category=$1`;
     values = [category];
   } else {
-    query = `select * from posts
-    left join post_votes
-    on posts.post_id = post_votes.post_id`;
+    query = `select * from posts`;
   }
 
   const results = await pool.query(query, values);
@@ -44,19 +39,13 @@ postRouter.get("/", async (req, res) => {
 });
 
 postRouter.get("/:id", async (req, res) => {
-  try {
-    const postId = req.params.id;
-    const result = await pool.query(
-      "select * from posts left join post_votes on posts.post_id = post_votes.post_id where post_id=$1",
-      [postId]
-    );
-    return res.json({
-      data: result.rows[0],
-    });
-  } catch (error) {
-    console.error(error);
-    return "พัง";
-  }
+  const postId = req.params.id;
+  const result = await pool.query("select * from posts where post_id=$1", [
+    postId,
+  ]);
+  return res.json({
+    data: result.rows[0],
+  });
 });
 
 postRouter.post("/create", async (req, res) => {
@@ -171,30 +160,41 @@ postRouter.put("/:id/comments", async (req, res) => {
   });
 });
 
-postRouter.put("/:id/vote", async (req, res) => {
+postRouter.post("/:id/", async (req, res) => {
   const postId = req.params.id;
-  const upvote = true || false;
-  const result = await pool.query(
-    `select * from post_votes update post_votes set upvote=$1 where post_id=$2`,
-    [upvote, postId]
+  const newVote = { ...req.body };
+
+  await pool.query(
+    `insert into post_votes(user_id, post_id, upvote, downvote) values ($1, $2, $3, $4) `,
+    [newVote.user_id, postId, newVote.upvote, newVote.downvote]
   );
 
   return res.json({
-    data: result.rows[0],
+    message: `User id ${newVote.user_id} has voted to post id ${postId}`,
   });
 });
 
-/* postRouter.put("/:id/vote", async (req, res) => {
+postRouter.put("/:id/", async (req, res) => {
   const postId = req.params.id;
-  const downvote = 1;
-  const result = await pool.query(
-    `select * from post_votes update post_votes set= downvote=$1 where post_id=$2`,
-    [downvote, postId]
+  const updatedVote = { ...req.body };
+
+  await pool.query(
+    `update post_votes set upvote=$1, downvote=$2 where post_id=$3 `,
+    [updatedVote.upvote, updatedVote.downvote, postId]
   );
 
   return res.json({
-    data: result.rows[0],
+    message: `User id ${updatedVote.user_id} has updated voted to post id ${postId}`,
   });
-}); */
+});
+
+postRouter.post("/:id/comments", async (req, res) => {
+  const newVote = { ...req.body };
+
+  await pool.query(
+    `insert into comment_votes (user_id, comment_id, upvote, downvote) values ($1, $2, $3, $4)`,
+    [newVote.user_id, newVote.comment_id, newVote.upvote, newVote.downvote]
+  );
+});
 
 export default postRouter;
