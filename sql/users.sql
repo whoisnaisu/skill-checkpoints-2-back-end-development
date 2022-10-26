@@ -1,20 +1,25 @@
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('dbalsom0', 'AjjYir', 'Darin', 'Balsom', '7/21/2022', '5/24/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('nlieber1', '8Pip0Qyw', 'Nestor', 'Lieber', '6/25/2022', '8/6/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('dferie2', 'BMQJXJ0BtDgV', 'Dyanna', 'Ferie', '2/10/2022', '12/9/2021');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('nbengal3', 'P5sF01', 'Normand', 'Bengal', '7/29/2022', '7/2/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('asneller4', 'mq2x2smtZN', 'Alfons', 'Sneller', '11/1/2021', '11/3/2021');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('kbreen5', 'kVSOE2', 'Knox', 'Breen', '7/27/2022', '12/25/2021');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('abignal6', 'MZ1CqF', 'Arvin', 'Bignal', '12/22/2021', '6/20/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('plifsey7', 'BVDP9JDi', 'Page', 'Lifsey', '1/19/2022', '4/25/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('isims8', 'gFc5H6Tla2', 'Ignazio', 'Sims', '8/17/2022', '7/29/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('hhulatt9', 'CByt5lKEsnOo', 'Harriott', 'Hulatt', '5/6/2022', '12/15/2021');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('nmorecombea', 'BR94fr', 'Nettie', 'Morecombe', '11/8/2021', '8/8/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('hbatthewb', 'Xp8tF10', 'Ham', 'Batthew', '2/14/2022', '2/15/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('rrenfieldc', 'ySWNirRZ', 'Raimondo', 'Renfield', '7/25/2022', '6/25/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('dklimmekd', 'DcejkbUltX', 'Dinnie', 'Klimmek', '8/12/2022', '9/24/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('hcrudgingtone', 'FHbatV2221we', 'Horace', 'Crudgington', '5/9/2022', '10/5/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('lgantleyf', 'ZZ9MJO7BNR', 'Lesley', 'Gantley', '5/23/2022', '10/10/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('vkernaghang', '9UOHO4IGId0', 'Virgilio', 'Kernaghan', '4/20/2022', '11/28/2021');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('goneilh', 'sakMCjl', 'Grissel', 'Oneil', '6/5/2022', '10/22/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('wboddyi', 'KPVEWussqp', 'Willamina', 'Boddy', '5/1/2022', '4/13/2022');
-insert into users (username, password, firstname, lastname, created_at, updated_at) values ('jbeslierj', 'qwesQ6Hgh7', 'Jenn', 'Beslier', '2/7/2022', '6/29/2022');
+create table users (
+	user_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	username VARCHAR(50) NOT NULL,
+	password VARCHAR(50) NOT NULL
+);
+
+insert into users (username, password) values ('pthrustle0', 'hNHR5foEBDx');
+insert into users (username, password) values ('nbellwood1', 'JNcJzcJf95yt');
+insert into users (username, password) values ('mkemet2', 'gFVTVjl');
+insert into users (username, password) values ('jgrafton3', '2RVEE4q');
+insert into users (username, password) values ('achatin4', 'Fux3j4nxYjFl');
+insert into users (username, password) values ('flindberg5', 'XCWQpye4');
+insert into users (username, password) values ('hfrancecione6', 'rPVnOP7yLH');
+insert into users (username, password) values ('eerbain7', 'RZHBRb');
+insert into users (username, password) values ('kcortnay8', 'CHY9ygjMH1qh');
+insert into users (username, password) values ('dfroude9', 'DUIkWHTmy');
+insert into users (username, password) values ('lhartlesa', 'vFit3c0HMrT');
+insert into users (username, password) values ('ptomaellob', 'HSBWD22h4h');
+insert into users (username, password) values ('lwoolgerc', 'xAKwXvq');
+insert into users (username, password) values ('kdevaand', 'qlTYc5sTNd');
+insert into users (username, password) values ('mkettleye', 'h0GyAG');
+insert into users (username, password) values ('dlarderotf', '3i9IpVvk');
+insert into users (username, password) values ('jmellemg', 'AOmXZu3ls');
+insert into users (username, password) values ('wlamsheadh', 'TryIY3Jsc');
+insert into users (username, password) values ('ttanzigi', 'pqlmbfJy');
